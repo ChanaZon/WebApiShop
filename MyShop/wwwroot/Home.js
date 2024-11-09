@@ -1,0 +1,62 @@
+﻿
+const register = () => {
+    const container = document.querySelector("#container");
+    container.style.visibility = "visible";
+}
+
+const GetDataFromRegister = () => {
+    const userName = document.querySelector("#registerUserNameInput").value
+    const password = document.querySelector("#registerPasswordInput").value
+    const firstName = document.querySelector("#registerFirstNameInput").value
+    const lastName = document.querySelector("#registerLastNameInput").value
+
+    return ({ userName, password, firstName, lastName })
+}
+const CreateNewUser = async () => {
+    const newUser = GetDataFromRegister();
+    try {
+        const ResponsePost = await fetch('api/User', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+        });
+        if (ResponsePost.ok) {
+            alert("Created successfully");
+        } else {
+            alert("Bad request");
+        }
+    }
+    catch (Error) {
+        alert(Error)
+    }
+}
+const GetDataFromLogin = () => {
+    const userName = document.querySelector("#loginUserNameInput").value
+    const password = document.querySelector("#loginPasswordInput").value
+    return ({ userName, password })
+
+}
+
+const Login = async () => {
+    const details = GetDataFromLogin();
+    try {
+        const ResponsePost = await fetch(`api/User/Login/?userName=${details.userName}&password=${details.password}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        const dataPost = await ResponsePost.json();
+        if (dataPost.status == 400)
+            alert("wrong detaiels, please try again!")
+        else {
+            sessionStorage.setItem("currentUser", JSON.stringify(dataPost))
+            window.location.href = "UserDetails.html";
+        }
+    }
+    catch (Error) {
+        alert(Error)
+    }
+}
