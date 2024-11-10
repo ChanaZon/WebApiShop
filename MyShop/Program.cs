@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<IUser,UserRepository>();
 
 builder.Services.AddControllers();
 
