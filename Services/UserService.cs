@@ -1,6 +1,7 @@
 ﻿using Repositories;
 using Entities;
 using System.Text.Json;
+using Zxcvbn;
 
 namespace Services
 {
@@ -33,6 +34,19 @@ namespace Services
         {
                 return _userRepository.UpdateUser(id, userToUpdate);
 
+        }
+        public int CheckPassword(string password)
+        {
+            var result = zxcvbn.Evaluate(password);
+
+            // ליצור אובייקט מותאם אישית עם הדירוג וההמלצות
+            var passwordStrengthResult = new 
+            {
+                Score = result.Score,
+                Suggestions = result.Feedback.Suggestions
+            };
+
+            return passwordStrengthResult;
         }
     }
 }

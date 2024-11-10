@@ -80,5 +80,9 @@ namespace Repositories
             }
 
         }
+        public int CheckPassword(string password)
+        {
+            return 0;
+        }
     }
 }

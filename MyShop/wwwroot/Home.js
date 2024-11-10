@@ -60,3 +60,22 @@ const Login = async () => {
         alert(Error)
     }
 }
+const checkPassword =async()=>{
+    try {
+        const ResponsePost = await fetch(`api/User/Login/?userName=${details.userName}&password=${details.password}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        const dataPost = await ResponsePost.json();
+        if (dataPost.status == 400)
+            
+        else {
+
+        }
+    }
+    catch (Error) {
+        alert(Error)
+    }
+}

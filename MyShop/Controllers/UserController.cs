@@ -51,6 +51,16 @@ namespace MyShop.Controllers
             }
             return BadRequest();
         }
+        [HttpPost]
+        public IActionResult CheckPassword([FromBody] string password)
+        {
+            Boolean result = _userService.AddUser(user);
+            if (result)
+            {
+                return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
+            }
+            return BadRequest();
+        }
 
         // POST api/<UserController>
         [HttpPost]
