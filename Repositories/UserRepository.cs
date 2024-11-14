@@ -4,7 +4,7 @@ using System.Text.Json;
 namespace Repositories
 
 {
-    public class UserRepository : IUser
+    public class UserRepository : IUserRepository
     {
         string filePath = "E:\\web api\\Web Api\\MyShop\\MyShop\\users.txt";
         public User GetUserById(int id)
@@ -19,21 +19,20 @@ namespace Repositories
                         return user;
                 }
             }
-            User u = new();
-            return u;
+            return null;
         }
 
 
-        public Boolean AddUser(User user)
+        public User AddUser(User user)
         {
             int numberOfUsers = System.IO.File.ReadLines(filePath).Count();
             user.UserId = numberOfUsers + 1;
             string userJson = JsonSerializer.Serialize(user);
             System.IO.File.AppendAllText(filePath, userJson + Environment.NewLine);
-            return true;
+            return user;
         }
 
-        public Boolean Login(string userName, string password)
+        public User Login(string userName, string password)
         {
             using (StreamReader reader = System.IO.File.OpenText(filePath))
             {
@@ -43,11 +42,11 @@ namespace Repositories
                     User user = JsonSerializer.Deserialize<User>(currentUserInFile);
                     if (user.UserName == userName && user.Password == password)
 
-                        return true;
+                        return user;
                 }
             }
 
-            return false;
+            return null;
 
         }
 
@@ -74,15 +73,8 @@ namespace Repositories
                 System.IO.File.WriteAllText(filePath, text);
                 return true;
             }
-            else
-            {
                 return false;
-            }
 
-        }
-        public int CheckPassword(string password)
-        {
-            return 0;
         }
     }
 }

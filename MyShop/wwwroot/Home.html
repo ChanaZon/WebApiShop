@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>home</title>
-    <script src="Home.js"></script>
+    <script defer src="Home.js"></script>
     <link rel="stylesheet" href="Home.css" />
 </head>
 <body>
@@ -14,7 +14,6 @@
         <label>password</label>
         <input id="loginPasswordInput" type="password" />
         <button onclick="Login()">login</button>
-        <button onclick="checkPassword()">check password</button>
         <br />
         <button onclick="register()">Press here to register</button>
         <div id="container" style="visibility:hidden">
@@ -22,7 +21,8 @@
             <label>userName</label>
             <input id="registerUserNameInput" type="email" />
             <label>password</label>
-            <input id="registerPasswordInput" type="password" />
+            <input id="registerPasswordInput" type="password" onblur="checkPassword()"/>
+            <meter id="a"></meter>
             <label>firstName</label>
             <input id="registerFirstNameInput" />
             <label>lastName</label>

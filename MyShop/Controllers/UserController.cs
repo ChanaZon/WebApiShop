@@ -2,7 +2,7 @@
 using System.Text.Json;
 using Services;
 using Entities;
-using Repositories;
+using System.Diagnostics.Metrics;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,9 +14,9 @@ namespace MyShop.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        IUser _userService;
+        IUserService _userService;
 
-        public UserController(IUser userService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }
@@ -44,22 +44,30 @@ namespace MyShop.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] User user)
         {
-            Boolean result = _userService.AddUser(user);
-            if (result)
+            int passwordScore = _userService.CheckPassword(user.Password);
+            User result = _userService.AddUser(user);
+            if ((user.UserName==""||user.FirstName==""||user.LastName==""))
+            {
+              return BadRequest(new { error = "UserName, FirstName, and LastName are required." });
+            }
+
+            if (result != null && passwordScore > 2) 
             {
                 return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
             }
             return BadRequest();
         }
+
         [HttpPost]
-        public IActionResult CheckPassword([FromBody] string password)
+        [Route("Password")]
+        public ActionResult<int> CheckPassword([FromBody] string password)
         {
-            Boolean result = _userService.AddUser(user);
-            if (result)
+            int result = _userService.CheckPassword(password);
+            if (result < 0)
             {
-                return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
+                return BadRequest();
             }
-            return BadRequest();
+            return result;
         }
 
         // POST api/<UserController>
@@ -67,8 +75,8 @@ namespace MyShop.Controllers
         [Route("Login")]
         public ActionResult<User> Login([FromQuery] string userName, [FromQuery] string password)
         {
-            Boolean result = _userService.Login(userName,password);
-            if (result)
+            User result = _userService.Login(userName,password);
+            if (result != null)
             {
                 return Ok(_userService.Login(userName, password));
             }

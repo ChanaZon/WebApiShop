@@ -1,4 +1,5 @@
 ﻿
+const meter = document.querySelector("#a")
 const register = () => {
     const container = document.querySelector("#container");
     container.style.visibility = "visible";
@@ -36,8 +37,10 @@ const GetDataFromLogin = () => {
     const userName = document.querySelector("#loginUserNameInput").value
     const password = document.querySelector("#loginPasswordInput").value
     return ({ userName, password })
-
 }
+
+
+
 
 const Login = async () => {
     const details = GetDataFromLogin();
@@ -60,22 +63,32 @@ const Login = async () => {
         alert(Error)
     }
 }
-const checkPassword =async()=>{
+
+const getPassword = () => {
+    const password = document.querySelector("#registerPasswordInput").value
+    return ( password )
+}
+
+const checkPassword = async () => {
+    const password = getPassword()
     try {
-        const ResponsePost = await fetch(`api/User/Login/?userName=${details.userName}&password=${details.password}`, {
+        const ResponsePost = await fetch(`api/User/Password`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
+            body: JSON.stringify(password)
         });
         const dataPost = await ResponsePost.json();
-        if (dataPost.status == 400)
-            
+        if (!ResponsePost.ok) {
+            alert("try again")
+        }
         else {
-
+            meter.value = (dataPost/10)*2+0.2
+            return dataPost
         }
     }
     catch (Error) {
-        alert(Error)
+        alert(`error ${Error}`)
     }
 }

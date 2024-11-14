@@ -5,11 +5,11 @@ using Zxcvbn;
 
 namespace Services
 {
-    public class UserService:IUser
+    public class UserService : IUserService
     {
-        IUser _userRepository;
+        IUserRepository _userRepository;
 
-        public UserService(IUser userRepository)
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -20,33 +20,30 @@ namespace Services
         }
 
 
-        public Boolean AddUser(User user)
+        public User AddUser(User user)
         {
             return _userRepository.AddUser(user);
         }
 
-        public Boolean Login(string userName, string password)
+        public User Login(string userName, string password)
         {
             return _userRepository.Login(userName, password);
         }
 
         public Boolean UpdateUser(int id, User userToUpdate)
         {
-                return _userRepository.UpdateUser(id, userToUpdate);
+            return _userRepository.UpdateUser(id, userToUpdate);
 
         }
         public int CheckPassword(string password)
         {
-            var result = zxcvbn.Evaluate(password);
-
-            // ליצור אובייקט מותאם אישית עם הדירוג וההמלצות
-            var passwordStrengthResult = new 
+            if (password == null || password == "")
             {
-                Score = result.Score,
-                Suggestions = result.Feedback.Suggestions
-            };
+                return -1;
+            } 
+            var result = Zxcvbn.Core.EvaluatePassword(password);
 
-            return passwordStrengthResult;
+            return result.Score;
         }
     }
 }
