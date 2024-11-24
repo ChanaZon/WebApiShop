@@ -21,7 +21,8 @@ namespace Services
 
 
         public User AddUser(User user)
-        {
+        {            //check password strength
+
             return _userRepository.AddUser(user);
         }
 
@@ -31,7 +32,8 @@ namespace Services
         }
 
         public Boolean UpdateUser(int id, User userToUpdate)
-        {
+        {            //check password strength
+
             return _userRepository.UpdateUser(id, userToUpdate);
 
         }
