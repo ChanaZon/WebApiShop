@@ -44,7 +44,7 @@ namespace MyShop.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] User user)
         {
-            int passwordScore = _userService.CheckPassword(user.Password);
+            int passwordScore = _userService.CheckPassword(user.Password);//not here, in services
             User result = _userService.AddUser(user);
             if ((user.UserName==""||user.FirstName==""||user.LastName==""))
             {

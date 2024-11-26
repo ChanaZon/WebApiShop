@@ -23,6 +23,8 @@ const CreateNewUser = async () => {
             },
             body: JSON.stringify(newUser)
         });
+        //if status==400
+        //weak password
         if (ResponsePost.ok) {
             alert("Created successfully");
         } else {

@@ -24,6 +24,8 @@ const UpdateUser = async() => {
             },
             body: JSON.stringify(UpdatedUser)
         });
+        //if status==400
+        //weak password
         if (ResponsePut.ok) {
             alert("Updated successfully");
         } else {
