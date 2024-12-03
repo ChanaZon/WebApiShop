@@ -1,13 +1,13 @@
-﻿using Entities;
+﻿using Entities.Models;
 
 namespace Services
 {
     public interface IUserService
     {
-        User AddUser(User user);
+        Task<User> AddUser(User user);
         int CheckPassword(string password);
-        User GetUserById(int id);
+        //User GetUserById(int id);
         User Login(string userName, string password);
-        bool UpdateUser(int id, User userToUpdate);
+        Task<User> UpdateUser(int id, User userToUpdate);
     }
 }

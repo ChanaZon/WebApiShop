@@ -23,6 +23,9 @@ const CreateNewUser = async () => {
             },
             body: JSON.stringify(newUser)
         });
+        if (ResponsePost.status == 400) {
+            alert("One or more details is wrong");
+        }
         if (ResponsePost.ok) {
             alert("Created successfully");
         } else {

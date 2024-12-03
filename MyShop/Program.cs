@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Entities.Models;
 using Repositories;
 using Services;
 
@@ -7,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddDbContext<MyShopContext>(options => options.UseSqlServer("Data Source=DESKTOP-QKU0HL3;Initial Catalog=ManageShop;Integrated Security=True;Pooling=False"));
 
 
 builder.Services.AddControllers();

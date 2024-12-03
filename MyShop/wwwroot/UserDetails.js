@@ -15,7 +15,6 @@ const ShowDetails = () => {
     container.style.visibility = "visible";
 }
 const UpdateUser = async() => {
-    const UpdatedUser = GetDataFromForm();
     try {
         const ResponsePut = await fetch(`api/User/${user.userId}`, {
             method: 'PUT',
@@ -24,6 +23,9 @@ const UpdateUser = async() => {
             },
             body: JSON.stringify(UpdatedUser)
         });
+        if (ResponsePut.status == 400) {
+            alert("One or more details is wrong");
+        }
         if (ResponsePut.ok) {
             alert("Updated successfully");
         } else {
@@ -32,5 +34,34 @@ const UpdateUser = async() => {
     }
     catch (Error) {
         console.log(Error)
+    }
+}
+
+const getPassword = () => {
+    const password = document.querySelector("#registerPasswordInput").value
+    return (password)
+}
+
+const checkPassword = async () => {
+    const password = getPassword()
+    try {
+        const ResponsePost = await fetch(`api/User/Password`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(password)
+        });
+        const dataPost = await ResponsePost.json();
+        if (!ResponsePost.ok) {
+            alert("try again")
+        }
+        else {
+            meter.value = (dataPost / 10) * 2 + 0.2
+            return dataPost
+        }
+    }
+    catch (Error) {
+        alert(`error ${Error}`)
     }
 }

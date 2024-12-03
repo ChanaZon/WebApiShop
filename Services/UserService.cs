@@ -1,5 +1,5 @@
 ﻿using Repositories;
-using Entities;
+using Entities.Models;
 using System.Text.Json;
 using Zxcvbn;
 
@@ -14,15 +14,20 @@ namespace Services
             _userRepository = userRepository;
         }
 
-        public User GetUserById(int id)
-        {
-            return _userRepository.GetUserById(id);
-        }
+        //public User GetUserById(int id)
+        //{
+        //    return _userRepository.GetUserById(id);
+        //}
 
 
-        public User AddUser(User user)
+        public async Task<User> AddUser(User user)
         {
-            return _userRepository.AddUser(user);
+            int passwordScore = CheckPassword(user.Password);
+            if (user.UserName == "" || user.FirstName == "" || user.LastName == ""|| passwordScore < 2)
+            {
+                return null;
+            }
+            return await _userRepository.AddUserAsync(user);
         }
 
         public User Login(string userName, string password)
@@ -30,10 +35,14 @@ namespace Services
             return _userRepository.Login(userName, password);
         }
 
-        public Boolean UpdateUser(int id, User userToUpdate)
+        public async Task<User> UpdateUser(int id, User userToUpdate)
         {
-            return _userRepository.UpdateUser(id, userToUpdate);
-
+            int passwordScore = CheckPassword(userToUpdate.Password);
+            if (userToUpdate.UserName == "" || userToUpdate.FirstName == "" || userToUpdate.LastName == "" || passwordScore < 2)
+            {
+                return null;
+            }
+            return await _userRepository.UpdateUserAsync(id, userToUpdate);
         }
         public int CheckPassword(string password)
         {
