@@ -52,9 +52,6 @@ namespace Repositories
             {
                 return null;
             }
-            //User user = _context.Users.FirstOrDefault(u => u.UserId == id );
-            //user = userToUpdate;
-            //await _context.Users.Update(userToUpdate);
            _context.Update(userToUpdate);
             await _context.SaveChangesAsync();
             return userToUpdate;
