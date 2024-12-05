@@ -52,10 +52,12 @@ namespace Repositories
             {
                 return null;
             }
-            _context.Users.Update(userToUpdate);
+            //User user = _context.Users.FirstOrDefault(u => u.UserId == id );
+            //user = userToUpdate;
+            //await _context.Users.Update(userToUpdate);
+           _context.Update(userToUpdate);
             await _context.SaveChangesAsync();
             return userToUpdate;
-
         }
     }
 }

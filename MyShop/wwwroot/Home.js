@@ -56,7 +56,7 @@ const Login = async () => {
         });
         const dataPost = await ResponsePost.json();
         if (dataPost.status == 400)
-            alert("wrong detaiels, please try again!")
+            alert("wrong details, please try again!")
         else {
             sessionStorage.setItem("currentUser", JSON.stringify(dataPost))
             window.location.href = "UserDetails.html";

@@ -1,4 +1,5 @@
 ﻿const title = document.querySelector("#title")
+const meter = document.querySelector("#meter")
 const user = JSON.parse(sessionStorage.getItem('currentUser'))
 title.textContent = `hello ${user.userName}`
 
@@ -7,14 +8,16 @@ const GetDataFromForm = () => {
     const password = document.querySelector("#updatePasswordInput").value
     const firstName = document.querySelector("#updateFirstNameInput").value
     const lastName = document.querySelector("#updateLastNameInput").value
-    return ({ userName, password, firstName, lastName });
+    const userId = user.userId
+    return ({ userName, password, firstName, lastName, userId });
 }
 
 const ShowDetails = () => {
     const container = document.querySelector("#details");
     container.style.visibility = "visible";
 }
-const UpdateUser = async() => {
+const UpdateUser = async () => {
+    const UpdatedUser = GetDataFromForm();
     try {
         const ResponsePut = await fetch(`api/User/${user.userId}`, {
             method: 'PUT',
@@ -38,7 +41,7 @@ const UpdateUser = async() => {
 }
 
 const getPassword = () => {
-    const password = document.querySelector("#registerPasswordInput").value
+    const password = document.querySelector("#updatePasswordInput").value
     return (password)
 }
 
@@ -54,7 +57,7 @@ const checkPassword = async () => {
         });
         const dataPost = await ResponsePost.json();
         if (!ResponsePost.ok) {
-            alert("try again")
+            alert("enter password again")
         }
         else {
             meter.value = (dataPost / 10) * 2 + 0.2
