@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using Services;
-//using Entities;
 using Entities.Models;
 using System.Diagnostics.Metrics;
 
@@ -30,7 +29,7 @@ namespace MyShop.Controllers
         }
 
         // GET api/<UserController>/5
-        //[HttpGet("{id}")]
+        [HttpGet("{id}")]
         //public ActionResult<User> GetUserById(int id)
         //{
         //    User result = _userService.GetUserById(id);

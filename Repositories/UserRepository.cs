@@ -1,5 +1,4 @@
-﻿//using Entities;
-using Entities.Models;
+﻿using Entities.Models;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 namespace Repositories
@@ -12,20 +11,6 @@ namespace Repositories
         {
             _context = context; 
         }
-        //public User GetUserById(int id)
-        //{
-        //    using (StreamReader reader = System.IO.File.OpenText(filePath))
-        //    {
-        //        string? currentUserInFile;
-        //        while ((currentUserInFile = reader.ReadLine()) != null)
-        //        {
-        //            User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-        //            if (user.UserId == id)
-        //                return user;
-        //        }
-        //    }
-        //    return null;
-        //}
 
 
         public async Task<User> AddUserAsync(User user)
