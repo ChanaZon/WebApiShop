@@ -16,6 +16,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddDbContext<MyShopContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:School"]));
+//builder.Services.AddDbContext<MyShopContext>(options => options.UseSqlServer("Data Source=SRV2/PUPILS;Initial Catalog=MyShop_214859456;Integrated,Security=True;Pooling=False"));
 
 
 builder.Services.AddControllers();
@@ -29,7 +30,16 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 // Configure the HTTP request pipeline.
 
