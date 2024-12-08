@@ -32,7 +32,7 @@ namespace Repositories
 
         public async Task<Category> GetCategoryById(int id)
         {
-
+            var v = 7;
             return await _context.Categories.FirstOrDefaultAsync<Category>(p => p.CategoryId == id);
 
         }
