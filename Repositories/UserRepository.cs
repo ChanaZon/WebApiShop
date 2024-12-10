@@ -31,7 +31,9 @@ namespace Repositories
         public async Task<User> AddUserAsync(User user)
         {
             await _context.Users.AddAsync(user);
+            //var res=await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
+            //return res- the created user with the id
             return user;
         }
 
