@@ -90,11 +90,5 @@ namespace MyShop.Controllers
             }
             return BadRequest();
         }
-
-        // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

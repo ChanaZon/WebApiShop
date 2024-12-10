@@ -1,0 +1,2 @@
+to do in project:
+-create orderItems in DB when creating an order.
