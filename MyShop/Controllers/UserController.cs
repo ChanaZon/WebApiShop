@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using Services;
-using Entities.Models;
 using System.Diagnostics.Metrics;
+using Entities;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -30,22 +30,22 @@ namespace MyShop.Controllers
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
-        //public ActionResult<User> GetUserById(int id)
-        //{
-        //    User result = _userService.GetUserById(id);
-        //    if (result.UserId != null)
-        //    {
-        //        return Ok(_userService.GetUserById(id));
-        //    }
-        //    return BadRequest();
-        //}
+        public async Task<ActionResult<User>> GetUserById(int id)
+        {
+            User result = _userService.GetUserById(id);
+            if (result.UserId != null)
+            {
+                return Ok(_userService.GetUserById(id));
+            }
+            return BadRequest();
+        }
 
         // POST api/<UserController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] User user)
         {
             //int passwordScore = _userService.CheckPassword(user.Password);
-            Task<User> result = _userService.AddUser(user);
+            User result = await _userService.AddUser(user);
 
             if (result != null ) 
             {
@@ -83,7 +83,7 @@ namespace MyShop.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] User userToUpdate)
         {
-            Task<User> result = _userService.UpdateUser(id,userToUpdate);
+            User result = await _userService.UpdateUser(id,userToUpdate);
             if (result != null)
             {
                 return Ok(result);

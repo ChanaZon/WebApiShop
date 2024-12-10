@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Entities.Models;
+namespace Entities;
 
 public partial class MyShopContext : DbContext
 {
@@ -27,7 +27,7 @@ public partial class MyShopContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=SRV2\\PUPILS;Database=MyShop_214859456;Trusted_Connection=True;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-QKU0HL3;Initial Catalog=ManageShop;Integrated Security=True;TrustServerCertificate=True;Pooling=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

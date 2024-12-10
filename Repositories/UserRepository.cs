@@ -1,4 +1,4 @@
-﻿using Entities.Models;
+﻿using Entities;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 namespace Repositories
@@ -28,6 +28,14 @@ namespace Repositories
                 return null;
             return user;
 
+        }
+
+        public User GetUserById(int id)
+        {
+            User user = _context.Users.FirstOrDefault(u => u.UserId == id);
+            if (user == null)
+                return null;
+            return user;
         }
 
         public async Task<User> UpdateUserAsync(int id, User userToUpdate)

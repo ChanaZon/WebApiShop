@@ -1,4 +1,4 @@
-﻿using Entities.Models;
+﻿using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -23,7 +23,7 @@ namespace MyShop.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Product>>> Get()
         {
-            Task<List<Product>> result = _productService.GetProducts();
+            List<Product> result = await _productService.GetProducts();
             if (result != null)
             {
                 return Ok(result);
@@ -35,7 +35,7 @@ namespace MyShop.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> Get(int id)
         {
-            Task<Product> result = _productService.GetProductById(id);
+            Product result = await _productService.GetProductById(id);
             if (result != null)
             {
                 return Ok(result);
@@ -60,5 +60,6 @@ namespace MyShop.Controllers
         public void Delete(int id)
         {
         }
+       
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Repositories;
-using Entities.Models;
 using System.Text.Json;
 using Zxcvbn;
+using Entities;
 
 namespace Services
 {
@@ -14,10 +14,10 @@ namespace Services
             _userRepository = userRepository;
         }
 
-        //public User GetUserById(int id)
-        //{
-        //    return _userRepository.GetUserById(id);
-        //}
+        public User GetUserById(int id)
+        {
+            return _userRepository.GetUserById(id);
+        }
 
 
         public async Task<User> AddUser(User user)

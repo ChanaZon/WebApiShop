@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Entities.Models;
 using Repositories;
 using Services;
+using Entities;
 //using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,8 +15,8 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddDbContext<MyShopContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:School"]));
-//builder.Services.AddDbContext<MyShopContext>(options => options.UseSqlServer("Data Source=SRV2/PUPILS;Initial Catalog=MyShop_214859456;Integrated,Security=True;Pooling=False"));
+//builder.Services.AddDbContext<MyShopContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:Home"]));
+builder.Services.AddDbContext<MyShopContext>(options => options.UseSqlServer("Data Source=DESKTOP-QKU0HL3;Initial Catalog=ManageShop;Integrated Security=True;Pooling=False"));
 
 
 builder.Services.AddControllers();

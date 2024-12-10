@@ -1,4 +1,4 @@
-﻿using Entities.Models;
+﻿using Entities;
 
 namespace Services
 {
@@ -6,7 +6,7 @@ namespace Services
     {
         Task<User> AddUser(User user);
         int CheckPassword(string password);
-        //User GetUserById(int id);
+        User GetUserById(int id);
         User Login(string userName, string password);
         Task<User> UpdateUser(int id, User userToUpdate);
     }

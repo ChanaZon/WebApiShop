@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Entities.Models;
+using Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repositories
@@ -32,7 +32,6 @@ namespace Repositories
 
         public async Task<Category> GetCategoryById(int id)
         {
-            var v = 7;
             return await _context.Categories.FirstOrDefaultAsync<Category>(p => p.CategoryId == id);
 
         }

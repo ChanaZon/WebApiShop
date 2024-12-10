@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities;
+using Microsoft.AspNetCore.Mvc;
+using Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,13 +10,27 @@ namespace MyShop.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        // GET: api/<CategoryController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        ICategoryService _categoryService;
+
+        public CategoryController(ICategoryService categoryService)
         {
-            return new string[] { "value1", "value2" };
+            _categoryService = categoryService;
         }
 
+        // GET: api/<CategoryController>
+        [HttpGet]
+        public async Task<ActionResult<List<Category>>> Get()
+        {
+            List<Category> result = await _categoryService.GetCategories();
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
+        }
+
+        
         // GET api/<CategoryController>/5
         [HttpGet("{id}")]
         public string Get(int id)
