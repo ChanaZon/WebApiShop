@@ -11,6 +11,7 @@ namespace MyShop.Controllers
     public class OrderController : ControllerBase
     {
         IOrderService _orderService;
+        //everything with dto... also in other controllers.
 
         public OrderController(IOrderService orderService)
         {
