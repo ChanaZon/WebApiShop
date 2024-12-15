@@ -24,28 +24,28 @@ namespace Repositories
         {
 
             User user = _context.Users.FirstOrDefault(u =>  u.UserName == userName && u.Password == password );
-           if(user == null) 
-                return null;
-            return user;
+           //if(user == null) 
+               // return null;
+            return user;//if user is null, will return null.
 
         }
 
         public User GetUserById(int id)
         {
             User user = _context.Users.FirstOrDefault(u => u.UserId == id);
-            if (user == null)
-                return null;
-            return user;
+            //if (user == null)
+              //  return null;
+            return user;//if user is null, will return null.
         }
 
         public async Task<User> UpdateUserAsync(int id, User userToUpdate)
         {
 
-            if(userToUpdate == null)
+            if (userToUpdate == null)
             {
                 return null;
             }
-           _context.Update(userToUpdate);
+            _context.Update(userToUpdate);
             await _context.SaveChangesAsync();
             return userToUpdate;
         }

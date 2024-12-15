@@ -27,9 +27,9 @@ namespace Repositories
         public Order GetOrderById(int id)
         {
             Order order = _context.Orders.FirstOrDefault(o => o.OrderId == id);
-            if (order == null)
-                return null;
-            return order;
+            //if (order == null)
+               // return null;
+            return order;//if order is null, will return null.
         }
 
     }
