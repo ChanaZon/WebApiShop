@@ -3,7 +3,10 @@
 Welcome to our Web API project built with .NET 8. This project adheres to REST architectural principles to ensure a scalable, maintainable, and efficient API.
 
 ## API Documentation
-You can explore our API using the provided Swagger documentation (https://localhost:44398/Swagger/index.html).
+You can explore our API using the provided Swagger documentation.  
+By default (development environment), it is available at:  
+https://localhost:44398/Swagger/index.html  
+> Note: In staging/production environments the Swagger URL may differ.
 
 ## Project Structure
 
@@ -37,25 +40,43 @@ To enhance scalability, we use `async` and `await` for asynchronous programming.
 
 ## Database
 
-We use SQL as our database with a Code First approach. If you need to create the database, use the following commands:
+We use SQL as our primary database with a Code First approach. If you need to create the database, use the following commands:
 
-Add-migration MyShop_214859456
-Update-database
+
+'''Add-migration MyShop_214859456
+Update-database'''
+
+
+In addition, we use **Redis as an in-memory Distributed Cache** to improve performance and scalability. Redis can be easily run via **Docker Compose** alongside the API.
 
 ## Configuration Files
 
-Our project leverages configuration files to manage settings and environment-specific configurations. This ensures flexibility and ease of deployment.
+Our project leverages configuration files to manage settings and environment-specific configurations.  
+Configuration also includes **Docker Compose support**, allowing the API and Redis cache to run together seamlessly in containers.
 
 ## Error Handling
 
-All errors are handled by a custom middleware. Errors are logged using a logger and sent via email. This ensures robust error management and quick response to critical issues.
+All errors are handled by a custom middleware. Errors are logged using a logger and sent via email.  
+Authentication tokens are returned in **HttpOnly cookies** to protect against XSS attacks and prevent exposure of sensitive data.
 
 ## Request Logging
 
-Every request to the system is logged for rating and analysis purposes. This helps in monitoring usage patterns and improving the system based on real-world data.
+Every request to the system is logged for rating and analysis purposes. This helps in monitoring usage patterns and improving the system based on real-world data.  
+Logs can be correlated with token-based access while ensuring that sensitive information is never exposed.
 
 ## Clean Code
 
-We adhere to clean code principles, ensuring that our codebase is readable, maintainable, and scalable.
+We adhere to clean code principles, ensuring that our codebase is readable, maintainable, scalable, and designed with **security best practices** in mind.
 
 ---
+
+## 🔐 Information Security
+
+- **Token-based Access**: Access is restricted using tokens.
+- **Optimized Tokens**: Tokens contain essential information to reduce unnecessary DB queries.
+- **Secure Storage**: Tokens are securely stored and returned to the client inside `HttpOnly` cookies to prevent **XSS attacks**.
+- **Password Security**: All passwords are stored **hashed + salted** to protect user credentials in case of a data breach.
+- **CSP Headers**: Content Security Policy headers are enforced to mitigate XSS vulnerabilities.
+- **Rate Limiting**: The API enforces request rate limiting/throttling to mitigate brute-force attempts and abusive traffic.
+- **Performance + Caching**: We use **Distributed Cache with Redis (in-memory)**, which can be easily run via **Docker Compose** to ensure fast and scalable performance.
+- **Docker Support**: The entire system can be run in a Docker container for easy deployment and scalability.
